@@ -7,7 +7,7 @@ var assert = require('yeoman-generator').assert;
 describe('bower generator', function () {
 
   var promt = {
-    'bowerComponentName': 'bower mock',
+    'ModuleName': 'bower mock',
     'description': 'A Mock to test this package.',
     'livereloadPort': 35000
   };

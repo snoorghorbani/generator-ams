@@ -16,14 +16,16 @@
   "keywords": [
     "yeoman-generator",
     "angular",
-    "modular"
+    "modular",
+    "file structure"
   ],
-  "main": "app/index.js",
+  "main": "module/index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "files": [
-    "app"
+    "generators/module",
+    "generators/view"
   ],
   "dependencies": {
     "chalk": "~0.4.0",
