@@ -1,66 +1,64 @@
-# generator-generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-generator.svg?branch=master)](https://travis-ci.org/yeoman/generator-generator) [![Coverage Status](https://coveralls.io/repos/yeoman/generator-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/yeoman/generator-generator?branch=master)
+# Generator-bower
+[![Build Status](https://secure.travis-ci.org/ThorstenHans/generator-bower.png?branch=master)](https://travis-ci.org/ThorstenHans/generator-bower)
 
+A generator for Yeoman, to generate Bower components.
 
-> Yeoman generator generating a Yeoman generator
+## Usage ##
 
-![Yo dawg, I heard you like generators?](http://i.imgur.com/2gqiift.jpg)
-
-
-## Getting started
-
-- Install: `npm install -g generator-generator`
-- Run: `yo generator`
-
-
-## Commands
-
-* `yo generator` shows a wizard for generating a new generator
-* `yo generator:subgenerator <name>` generates a subgenerator with the name `<name>`
-
-
-## What do you get?
-
-Scaffolds out a complete generator directory structure for you:
+Install `generator-bower`:
 
 ```
-.
-├── generators/
-│   └── app/
-│       ├── index.js
-│       └── templates/
-│           └── dummyfile.txt
-├── .editorconfig
-├── .gitattributes
-├── .gitignore
-├── .eslintrc
-├── .travis.yml
-├── .yo-rc.json
-├── package.json
-├── gulpfile.js
-├── README.md
-├── LICENSE
-└── test/
-    └── app.js
+npm install -g generator-bower
 ```
 
-Refer to [our documentation](http://yeoman.io/authoring/) to learn more about creating a Yeoman generator.
+Make a new directory, and `cd` into it:
 
-### Running tests
+```
+mkdir my-new-project
+cd my-new-project
+```
 
-Run `npm test` to run your test suite.
+Run `yo bower`, optionally passing an component name:
 
-These tests will be run automatically in your git repository if you connect [Travis CI](https://travis-ci.org/profile). You can also track test coverage using [Coveralls](https://coveralls.io).
+```
+yo bower [component-name]
+```
 
-## Contributing
+Run `grunt` for building and `grunt serve` for preview
 
-See the [contribution docs](http://yeoman.io/contributing/).
+## Options ##
 
-When submitting an issue, please follow [the
-guidelines](http://yeoman.io/contributing/opening-issues.html).
-It is especially important to make sure Yeoman is up-to-date, and providing the
-command or commands that cause the issue.
+### CoffeeScript ###
+
+For generators that output scripts, the --coffee option will output CoffeeScript instead of JavaScript.
+
+For example:
+
+```
+yo bower --coffee
+```
+
+Will produce your initial code as appname.coffee.
+
+Also, your gruntfile will be produces as coffee script.
+
+### Dummy Component ###
+
+To create an empty component with all features actived, user command dummy, like:
+
+```
+yo bower --dummy
+```
+
+### Notes ###
+
+1. Usse --dummy to create a dummy project with dummy values.
+
+## TODO ##
+
+### Version 0.2.0 ###
+1. Add AngularJs components generation.
 
 
 ## License
-
-MIT © Pascal Hartig <phartig@rdrei.net> and other contributors
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)

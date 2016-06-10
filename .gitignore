@@ -1,5 +1,2 @@
-node_modules
-coverage
-
-cmd.lnk
-*.lnk
+node_modules/
+temp/

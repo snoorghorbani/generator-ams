@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= bowerComponentName%></title>
+</head>
+<body>
+    <section>
+        <h1>Yo <%= bowerComponentName%> !</h1>
+    </section>
+
+    <script src="../<%= componentName %>.js"></script>
+    <script>
+        console.log(<%= validVariableName %>())
+    </script>
+    <script src="//localhost:<%= livereloadPort %>/livereload.js"></script>
+</body>
+</html>

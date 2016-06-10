@@ -1,91 +1,117 @@
 'use strict';
+
+var util = require('util');
 var path = require('path');
-var generators = require('yeoman-generator');
-var askName = require('inquirer-npm-name');
-var _ = require('lodash');
-var extend = require('deep-extend');
-var mkdirp = require('mkdirp');
+var yeoman = require('yeoman-generator');
+var yosay = require('yosay');
+var chalk = require('chalk');
+var _ = require('underscore.string');
 
-function makeGeneratorName(name) {
-  name = _.kebabCase(name);
-  name = name.indexOf('generator-') === 0 ? name : 'generator-' + name;
-  return name;
-}
 
-module.exports = generators.Base.extend({
-  initializing: function () {
-    this.props = {};
-  },
+/**
+ * Initialization Function.
+ */
+var BowerGenerator = module.exports = function Appgenerator(args, options) {
+  yeoman.generators.Base.apply(this, arguments);
 
-  prompting: function () {
-    return askName({
-      name: 'name',
-      message: 'Your generator name',
-      default: makeGeneratorName(path.basename(process.cwd())),
-      filter: makeGeneratorName,
-      validate: function (str) {
-        return str.length > 0;
-      }
-    }, this).then(function (props) {
-      this.props.name = props.name;
-    }.bind(this));
-  },
-
-  default: function () {
-    if (path.basename(this.destinationPath()) !== this.props.name) {
-      this.log(
-        'Your generator must be inside a folder named ' + this.props.name + '\n' +
-        'I\'ll automatically create this folder.'
-      );
-      mkdirp(this.props.name);
-      this.destinationRoot(this.destinationPath(this.props.name));
+  // After finishing.
+  this.on('end', function () {
+    // Will instal dependencies if configured to it.
+    if (!this.options['skip-install']) {
+      this.installDependencies();
     }
 
-    var readmeTpl = _.template(this.fs.read(this.templatePath('README.md')));
+  });
 
-    this.composeWith('node:app', {
-      options: {
-        babel: false,
-        boilerplate: false,
-        name: this.props.name,
-        projectRoot: 'generators',
-        skipInstall: this.options.skipInstall,
-        readme: readmeTpl({
-          generatorName: this.props.name,
-          yoName: this.props.name.replace('generator-', '')
-        })
-      }
+  this.pkg = require('../package.json');
+};
+
+require('util').inherits(BowerGenerator, yeoman.generators.Base);
+
+
+BowerGenerator.prototype.askFor = function askFor() {
+  var done = this.async();
+
+  // Have Yeoman greet the user.
+  this.log(yosay('Welcome to the marvelous Bower Components generator!'));
+  this.log(chalk.blue.bgRed.bold('Lets Rock!!!'));
+
+  // Promot - If Dummy, nothing will be asked to user
+  var prompts;
+  if (this.options.dummy !== true) {
+    var prompts = [{
+      name: 'bowerComponentName',
+      message: "What's the name of your bower component?"
     }, {
-      local: require('generator-node').app
-    });
-
-    this.composeWith('generator:subgenerator', {
-      arguments: ['app']
+      name: 'description',
+      message: 'Provide a short description for your component!'
     }, {
-      local: require.resolve('../subgenerator')
-    });
-  },
-
-  writing: function () {
-    var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
-    extend(pkg, {
-      dependencies: {
-        'yeoman-generator': '^0.23.0',
-        chalk: '^1.0.0',
-        yosay: '^1.0.0'
-      },
-      devDependencies: {
-        'yeoman-test': '^1.0.0',
-        'yeoman-assert': '^2.0.0'
-      }
-    });
-    pkg.keywords = pkg.keywords || [];
-    pkg.keywords.push('yeoman-generator');
-
-    this.fs.writeJSON(this.destinationPath('package.json'), pkg);
-  },
-
-  install: function () {
-    this.installDependencies({bower: false});
+      // TODO: This must be optional.
+      name: 'livereloadPort',
+      message: 'Which port do you wish to use for livereloading?'
+    }];
+  } else {
+    prompts = [];
   }
-});
+
+  // Promtp all questions, if not on dummy mode.
+  this.prompt(prompts, function (props) {
+
+    // dummy project will use default vaules
+    if (this.options.dummy === true) {
+      this.bowerComponentName = 'dummy';
+      this.description = 'Some dummy and clean componnent.';
+      // TODO: See about it!
+      this.livereloadPort = 35729;
+    } else {
+      this.bowerComponentName = props.bowerComponentName;
+      this.description = props.description;
+      // TODO: See about it!
+      this.livereloadPort = props.livereloadPort;
+    }
+
+    // ???
+    this.slug = _.slugify(this.bowerComponentName);
+    this.validVariableName = _.capitalize(_.slugify(this.bowerComponentName)).replace('-', '');
+
+    done();
+  }.bind(this));
+};
+
+BowerGenerator.prototype.app = function app() {
+  this.mkdir('test');
+  this.mkdir('src');
+  this.mkdir('examples');
+  this.componentName = _.slugify(this.bowerComponentName);
+
+  // Choose strategy by used choice
+  var strategy;
+  if (this.options.coffee === true) {
+    this.extension = 'coffee';
+
+    this.log('Generating CoffeeScript code.');
+    strategy = require('./strategy/coffee.js');
+  } else {
+    this.extension = 'js';
+
+    this.log('Generating javaScript code.');
+    strategy = require('./strategy/javascript.js');
+  }
+
+  // Execute extrategy configuration.
+  strategy.execute(this);
+
+  if (this.options.dummy === true) {
+    // Create additional dummy files.
+    require('./strategy/dummy.js').createdumies(this, this.options.coffee);
+  }
+
+  this.template('_package.json', 'package.json');
+  this.template('_bower.json', 'bower.json');
+  this.copy('_index.html', 'examples/index.html');
+};
+
+BowerGenerator.prototype.projectfiles = function projectfiles() {
+  this.copy('editorconfig', '.editorconfig');
+  this.copy('jshintrc', '.jshintrc');
+};
