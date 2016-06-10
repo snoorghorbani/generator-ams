@@ -1,24 +1,22 @@
 {
   "name": "generator-ams",
-  "version": "0.0.1",
-  "description": "A yeoman generator for angular modular structure",
+  "version": "1.0.0",
+  "description": "Angular Modular Structure",
   "license": "MIT",
-
+  "author": "soushians noorghorbani <snoorghorbani@gmail.com> (www.soushians.ir)",
   "readmeFilename": "README.md",
-  "homepage": "https://github.com/ThorstenHans/generator-bower",
   "bugs": {
-    "url": "https://github.com/ThorstenHans/generator-bower/issues"
+    "url": "https://github.com/snoorghorbani/generator-ams/issues"
   },
+  "homepage": "https://github.com/snoorghorbani/generator-ams#readme",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ThorstenHans/generator-bower.git"
+    "url": "git+https://github.com/snoorghorbani/generator-ams.git"
   },
   "keywords": [
     "yeoman-generator",
-    "bower",
-    "bower-component",
-    "coffee-script",
-    "tdd"
+    "angular",
+    "modular"
   ],
   "main": "app/index.js",
   "engines": {
