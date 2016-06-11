@@ -1,12 +1,12 @@
 angular
-    .module('<%= ModuleName %>')
-        .service('<%= ModuleName %>.service', ['$resource', 'locale', 'apiGateway', function ($resource, locale, apiGateway) {
+    .module('<%= moduleName %>')
+        .service('<%= moduleName %>.service', ['$resource', 'locale', 'apiGateway', function ($resource, locale, apiGateway) {
 
-            var api = $resource('/<%= ModuleName %>/:action', { action: '@action' }, {
+            var api = $resource('/<%= moduleName %>/:action', { action: '@action' }, {
                 sampleAction: { method: 'POST', params: { action: 'sampleAction' } }
             });
 
-            var context = apiGateway.db('<%= ModuleName %>');
+            var context = apiGateway.db('<%= moduleName %>');
             context.api(api);
 
             context.model(['sampleAction'], function () {

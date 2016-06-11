@@ -25,14 +25,14 @@
                             </div>
                         </div>
                         <card-fullscreen-deactivate></card-fullscreen-deactivate>
-                        <h3 class="md-card-toolbar-heading-text" data-i18n="<%= ModuleName %>.<%= ModuleName %>s"></h3>
+                        <h3 class="md-card-toolbar-heading-text" data-i18n="<%= moduleName %>.<%= moduleName %>s"></h3>
                     </div>
                     <div class="md-card-content">
                         <div class="uk-overflow-container">
                             <table  class="uk-table uk-table-nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="uk-width-1-10 uk-text-center">{{ '<%= ModuleName %>.<%= ModuleName %>Id' | i18n }} </th>
+                                        <th class="uk-width-1-10 uk-text-center">{{ '<%= moduleName %>.<%= moduleName %>Id' | i18n }} </th>
                                         <th class="uk-width-1-10 uk-text-center">{{ 'common.Name' | i18n }} </th>
                                         <th class="uk-width-1-10 uk-text-small">{{ 'common.NationalId' | i18n }}</th>
                                         <th class="uk-width-2-10">{{ 'common.EconomicCode' | i18n }}</th>
@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in searchAction.Result.Items">
-                                        <td ng-bind="item.<%= ModuleName %>Id"></td>
+                                        <td ng-bind="item.<%= moduleName %>Id"></td>
                                         <td ng-bind="item.Name"></td>
                                         <td ng-bind="item.NationalId"></td>
                                         <td ng-bind="item.EconomicCode"></td>
@@ -81,8 +81,8 @@
 
 <div class="uk-modal" id="new-issue-modal">
     <!--<div class="uk-modal-dialog">
-        <form sh-form="<%= ModuleName %>.issue" class="uk-form-stacked">
-            <sh:input type="text" ng-model="<%= ModuleName %>CodePrefix" maxlength="10" required data-i18n-path="<%= ModuleName %>" />
+        <form sh-form="<%= moduleName %>.issue" class="uk-form-stacked">
+            <sh:input type="text" ng-model="<%= moduleName %>CodePrefix" maxlength="10" required data-i18n-path="<%= moduleName %>" />
 
             <sh:input type="number" ng-model="Quantity" required data-i18n-path="common" />
 
@@ -99,13 +99,13 @@
         </form>
     </div>-->
 </div>
-<div class="uk-modal" id="new-<%= ModuleName %>s-modal">
+<div class="uk-modal" id="new-<%= moduleName %>s-modal">
     <div class="uk-modal-dialog">
         <!--<div class="uk-modal-header"></div>-->
-        <h2 data-i18n="<%= ModuleName %>.New <%= ModuleName %>s Code"></h2>
-        <div class="uk-alert uk-alert-success"> {{'common.sucessfull submiting' | i18n}} ({{new<%= ModuleName %>s.length}})</div>
+        <h2 data-i18n="<%= moduleName %>.New <%= moduleName %>s Code"></h2>
+        <div class="uk-alert uk-alert-success"> {{'common.sucessfull submiting' | i18n}} ({{new<%= moduleName %>s.length}})</div>
         <ul class="uk-list uk-list-striped">
-            <li ng-repeat="item in new<%= ModuleName %>s">{{item}}</li>
+            <li ng-repeat="item in new<%= moduleName %>s">{{item}}</li>
         </ul>
         <!--<div class="uk-modal-footer"></div>-->
     </div>

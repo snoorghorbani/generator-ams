@@ -1,6 +1,3 @@
-'use strict'
-
-//var semver = require('semver');
 
 module.exports = function (grunt) {
 

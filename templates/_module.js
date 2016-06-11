@@ -1,4 +1,4 @@
-angular.module('<%= ModuleName %>', [])
+angular.module('<%= moduleName %>', [])
     .value('values', {})
     .constant('constants', {})
     .config(function () { })
