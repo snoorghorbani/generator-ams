@@ -1,0 +1,17 @@
+{
+  "view_templates": [ "Default", "Resource Management" ],
+  "Resource Management": {
+    "require_API": [
+      {
+        "default": "search",
+        "message": "type your action name that use for search for resource :",
+        "name": "search_action"
+      },
+      {
+        "default": "add",
+        "message": "type your action name that use for add new  :",
+        "name": "add_action"
+      }
+    ]
+  }
+}

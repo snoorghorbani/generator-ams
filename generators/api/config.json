@@ -1,0 +1,15 @@
+{
+  "view_template_dir": "./",
+  "questions": [
+    {
+      "name": "actionName",
+      "message": "What is your action name ?"
+    },
+    {
+      "name": "methodType",
+      "type": "list",
+      "choices": [ "POST", "GET", "PUT", "DELETE" ],
+      "message": "Choose HTTP action method :"
+    }
+  ]
+}

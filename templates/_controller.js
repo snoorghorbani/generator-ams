@@ -1,14 +1,14 @@
 angular
-    .module('<%= moduleName %>')
+    .module('<%= moduleName.underscored %>')
     .controller('<%= fullName %>.controller', [
-        '$rootScope',
         '$scope',
+        '<%= fullName %>.service',
         'locale',
-        '$http',
-        function ($rootScope, $scope, locale, $http) {
+        'locale',
+        '_',
+        function ($scope,<%= fullName %>_service locale, _) {
             var $scopeManager = new $scope.$scopeManager($scope);
 
-            //$scope.searchAction = $scope.$$$api.{backendControllerName}.{actionName}.$init(invoke_on_init = true);
         }
     ])
 ;

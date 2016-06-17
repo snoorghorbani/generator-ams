@@ -1,0 +1,23 @@
+{
+  "questions": [
+    {
+      "message": "What is your state name ?",
+      "name": "stateName"
+    },
+    {
+      "message": "Do you want to create view for this ?",
+      "name": "haveView",
+      "type": "confirm"
+    },
+    {
+      "message": "Do you want to add to menu ?",
+      "name": "addToMenu",
+      "type": "confirm"
+    },
+    {
+      "message": "Do you want to add controller to this state ?",
+      "name": "haveController",
+      "type": "confirm"
+    }
+  ]
+}

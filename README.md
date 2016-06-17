@@ -1,42 +1,38 @@
-# Generator-bower
-[![Build Status](https://secure.travis-ci.org/ThorstenHans/generator-bower.png?branch=master)](https://travis-ci.org/ThorstenHans/generator-bower)
+# Generator-ams
 
-A generator for Yeoman, to generate Bower components.
 
 ## Usage ##
 
-Install `generator-bower`:
+Install `generator-ams`:
 
 ```
 npm install -g generator-ams
 ```
 
-Make a new directory, and `cd` into it:
-
+Go to your project root directory and with `cd` command:
+use folowing command:
 ```
-mkdir my-new-project
-cd my-new-project
+yo ams:module
 ```
-
-Run `yo ams`, optionally passing an component name:
-
 ```
-yo ams
+yo ams:state
 ```
-
-
+```
+yo ams:api
+```
+```
+yo ams:directive
+```
 
 ## Options ##
 
 ### Notes ###
 
-
-
 ## TODO ##
 
-### Version 1.0.0 ###
+### Version 1.3.2 ###
 1. Add AngularJs Module Structur generation.
 
 
 ## License
-[MIT License](http://en.wikipedia.org/wiki/MIT_License)
+

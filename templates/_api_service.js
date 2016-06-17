@@ -1,39 +1,32 @@
 ﻿/**set action modal and data contract
- *  maybe : apiGateway.db('voucher')
- *              .route("/voucher/search")
- *              .post()
- *              .model()
- *              .datacontract()
- *              .getter()
- *              .setter()
- *              .notification();
+ *  maybe : 
+ *            apiGateway
+ *              .context(controllerName)
+                .action(actionName)
+ *              .post(POST/PUT/DELETE?GET)
+ *              .model(function(){})
+ *              .schema({
+ *					name:{
+ *	 					IsRequired
+ *	 					Default
+ *	 					Type
+ *	 					MaxLength
+ *					}	 
+ *              })
+ *              .getter(value_path,function(){})
+ *              .setter(value_path,function(){})
+ *              .notification(message);
  **/
 angular
-    .module('<%= moduleName %>')
-        .run(['$resource', 'locale', 'apiGateway', function ($resource, locale, apiGateway) {
+    .module('<%= moduleName.underscored %>')
+        .run(['apiGateway', function (apiGateway) {
 
             apiGateway
-                .context('<%= moduleName %>')
-                .action("<%= actionName %>")
-                .method('<%= methodType %>')
-                .model(function () {
-                    this.SampleProp = "TestValue";
-                    this.ObjProp = {
-                        ArrayProp: [{
-                            ChildProp: ''
-                        }]
-                    }
-                })
-                .getter("ObjProp.ArrayProp.ChildProp", function (value) {
-                    return value.toString();
-                })
-                .getter("SampleProp", function (value) {
-                    return value.toString();
-                })
-                .setter("SampleProp", function (value) {
-                    return value.toUpperCase();
-                })
-                .notification("<%= actionName %> of <%= moduleName %> start !")
+                .context('<%= moduleName.underscored %>')
+                .action("<%= actionName.underscored %>")
+                .method('<%= methodType.origin %>')
+                .schema(<%= schema %>)
+                .notification("<%= i18n.api_message %>")
                 .done()
             ;
         }])

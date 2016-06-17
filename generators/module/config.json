@@ -1,0 +1,43 @@
+{
+  "directory": "directory",
+  "view_template_dir": "./",
+  "questions": [
+    {
+      "name": "moduleName",
+      "message": "What's the name of your Module?"
+    },
+    {
+      "choices": [
+        {
+          "name": "Module",
+          "checked": true
+        },
+        {
+          "name": "State",
+          "checked": true
+        },
+        {
+          "name": "Controller",
+          "checked": true
+        },
+        {
+          "name": "Menu"
+        },
+        {
+          "name": "Service",
+          "checked": true
+        },
+        {
+          "name": "Template" 
+        },
+        {
+          "name": "Language",
+          "checked": true
+        }
+      ],
+      "message": "Select file that you want to create :",
+      "name": "files",
+      "type": "checkbox"
+    }
+  ]
+}

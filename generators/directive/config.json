@@ -1,0 +1,8 @@
+{
+  "questions": [
+    {
+      "message": "What is your directive name ?",
+      "name": "name"
+    }
+  ]
+}

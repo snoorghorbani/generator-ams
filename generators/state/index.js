@@ -7,8 +7,11 @@ var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
 var _ = require('underscore.string');
-
-var DIRECTORY = "directory";
+var states = require('./states.json');
+var config = require('./config.json');
+var global = require('../global.json');
+var global_ask = require("../global_ask");
+var global_fn = require('../global.js');
 
 /**
  * Initialization Function.
@@ -18,11 +21,7 @@ var AMSG = module.exports = function Appgenerator(args, options) {
 
     // After finishing.
     this.on('end', function () {
-        // Will instal dependencies if configured to it.
-        //if (!this.options['skip-install']) {
-        //    this.installDependencies();
-        //}
-        this.spawnCommand('gulp', ["js_app"]);
+        this.spawnCommand('gulp', [this.postGuplTask]);
     });
 
     this.pkg = require('../../package.json');
@@ -30,100 +29,72 @@ var AMSG = module.exports = function Appgenerator(args, options) {
 
 require('util').inherits(AMSG, yeoman.generators.Base);
 
-
 AMSG.prototype.askFor = function askFor() {
     var done = this.async();
-
-    // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the Angular Modular Structure(AMSG) generator!'));
-    this.log(chalk.blue.bgRed.bold('Lets Rock!!!'));
-
-    var prompts = [];
+    /**
+     * ask question about .yo-rc
+     */
+    var prompts = global_ask.define_questions(this);
 
     /**
-     * at the first time of generator run 
-     * ask for some strunture parameter
-     * like:
-     * directory : place that module directory save there.
-     * gulp action that must be run after generating end.
+     * task questions
      */
-    if (!this.config.get(DIRECTORY)) prompts.push({
-        name: DIRECTORY,
-        message: "Enter your modules directory?",
-        "default": "Client"
-    });
-    else if (this.config.get(DIRECTORY)) this.DIRECTORY = this.config.get(DIRECTORY);
+    global_fn.add_select_module_to_questions(this, prompts);
 
-    var _modules = getDirectories('./' + this.config.get(DIRECTORY));
     prompts.push({
-        name: 'moduleName',
+        name: 'viewTemplate',
         type: 'list',
-        choices: _modules,
-        message: 'Choose Module :'
+        choices: states.view_templates,
+        message: 'Choose state template :'
     });
 
-    prompts = prompts.concat([{
-        name: 'stateName',
-        message: "What is your state name ?"
-    }, {
-        name: 'haveView',
-        type: 'confirm',
-        message: 'Do you want to create view for this ?'
-    }, {
-        name: 'addToMenu',
-        type: 'confirm',
-        message: 'Do you want to add to menu ?'
-    }, {
-        name: 'haveController',
-        type: 'confirm',
-        message: 'Do you want to add controller to this state ?'
-    }]);
+    prompts = prompts.concat(config.questions);
 
     // Promtp all questions, if not on dummy mode.
     this.prompt(prompts, function (props) {
-        if (props.directory) {
-            this.config.set("directory", props.directory);
-            this.DIRECTORY = this.config.get(DIRECTORY);
-        }
-        if (props.postGuplTask)
-            this.config.set("postGuplTask", props.postGuplTask);
+        global_ask.proccess_user_interactions(this, props);
 
         // fill context with user answers
-        this.moduleName = props.moduleName;
-        this.stateName = props.stateName;
+        this.moduleName = _.underscored(props.moduleName);
+        this.viewTemplate = props.viewTemplate;
+        this.stateName = _.underscored(props.stateName);
+        this.stateName = _.underscored(this.stateName);
         this.haveView = props.haveView;
         this.addToMenu = props.addToMenu;
         this.haveController = props.haveController;
-
         // ???
         this.slug = _.slugify(this.moduleName);
         this.validVariableName = _.capitalize(_.slugify(this.moduleName)).replace('-', '');
         this.fullName = [this.moduleName, this.stateName].join('_');
         this.menuLink = [this.moduleName, this.stateName].join('.');
         this.menuLink_underlined = [this.moduleName, this.stateName].join('_');
+        this.menuLink_titleize = _.titleize(_.humanize(_.underscored([this.stateName, 'of', this.moduleName].join(' '))));
 
-        done();
+        //#region ask questions related to selected view template.
+        if (!(states[this.viewTemplate] && states[this.viewTemplate].require_API)) return;
+
+        this.prompt(states[this.viewTemplate].require_API, function (answers) {
+            this.add_action = answers.add_action;
+            this.search_action = answers.search_action;
+            done();
+        }.bind(this));
+        //#endregion
     }.bind(this));
 };
-
 AMSG.prototype.app = function app() {
-    this.mkdir('Client/' + _.slugify(this.moduleName));
-    this.moduleName = _.slugify(this.moduleName);
+    this.moduleName = _.underscored(this.moduleName);
+    if (this.config.get(global.directory))
+        this[global.directory] = this.config.get(global.directory);
 
-    require('./strategy.js').execute(this);
+    require('./create_file.js').execute(this);
+    this.i18n = {
+        menu_link: [this.moduleName, this.menuLink_titleize].join('.')
+    }
+    global_fn.add_message_to_language(this);
 
     this.log('create files according your choose...');
 };
 
-AMSG.prototype.projectfiles = function projectfiles() {
-
-};
 AMSG.prototype.saveConfig = function saveConfig() {
     this.config.save();
 };
-
-function getDirectories(srcpath) {
-    return fs.readdirSync(srcpath).filter(function (file) {
-        return fs.statSync(path.join(srcpath, file)).isDirectory();
-    });
-}
