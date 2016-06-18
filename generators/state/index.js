@@ -74,8 +74,13 @@ AMSG.prototype.askFor = function askFor() {
         if (!(states[this.viewTemplate] && states[this.viewTemplate].require_API)) return;
 
         this.prompt(states[this.viewTemplate].require_API, function (answers) {
-            this.add_action = answers.add_action;
-            this.search_action = answers.search_action;
+            //global_fn.fill_generator_with_answers(this, props);
+            this.search_action = (answers.search_action == '.') ? null : answers.search_action;
+            this.add_action = (answers.add_action == '.') ? null : answers.add_action;
+            this.edit_action = (answers.edit_action == '.') ? null : answers.edit_action;
+            this.detail_action = (answers.detail_action == '.') ? null : answers.detail_action;
+            this.delete_action = (answers.delete_action == '.') ? null : answers.delete_action;
+            this.have_action = (answers.delete_action && answers.detail_action && answers.edit_action);
             done();
         }.bind(this));
         //#endregion
@@ -88,7 +93,12 @@ AMSG.prototype.app = function app() {
 
     require('./create_file.js').execute(this);
     this.i18n = {
-        menu_link: [this.moduleName, this.menuLink_titleize].join('.')
+        "menu_link": [this.moduleName, this.menuLink_titleize].join('.'),
+        "new_item_modal": this.moduleName + '.New ' + this.moduleName + ' Item',
+        "items": this.moduleName + '.' + this.moduleName + 's',
+        "item": this.moduleName + '.' + this.moduleName,
+        "delete_item": this.moduleName + '.Delete ' + this.moduleName,
+        "edit_item": this.moduleName + '.Edit ' + this.moduleName
     }
     global_fn.add_message_to_language(this);
 

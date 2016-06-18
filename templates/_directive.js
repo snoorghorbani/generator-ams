@@ -1,6 +1,6 @@
 angular
     .module('<%= moduleName.underscored %>')
-        .directive('<%= name.camelize%>.directive', ['$compile', function ($compile) {
+        .directive('<%= name.camelize%>', ['$compile', function ($compile) {
             var directive = {
                 restrict: 'EA',
                 priority: 1500,

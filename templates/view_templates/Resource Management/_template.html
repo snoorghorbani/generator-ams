@@ -38,7 +38,7 @@
                                         <th class="uk-width-1-10 uk-text-center">{{ 'common.Name' | i18n }} </th>
                                         <th class="uk-width-1-10 uk-text-small">{{ 'common.NationalId' | i18n }}</th>
                                         <th class="uk-width-2-10">{{ 'common.EconomicCode' | i18n }}</th>
-                                        <!--<th class="uk-width-2-10 uk-text-center">Actions</th>-->
+                                        <% if (have_action) { %> <th class="uk-width-2-10 uk-text-center">Actions</th> <% } %>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,10 +47,11 @@
                                         <td ng-bind="item.Name"></td>
                                         <td ng-bind="item.NationalId"></td>
                                         <td ng-bind="item.EconomicCode"></td>
-                                        <!--<td class="uk-text-center">
-                                            <a href="#"><i class="md-icon material-icons">&#xE254;</i></a>
-                                            <a href="#"><i class="md-icon material-icons">&#xE88F;</i></a>
-                                        </td>-->
+                                        <% if (have_action) { %> <td class="uk-text-center">
+                                            <% if (edit_action != null) { %> <a href="#"><i class="md-icon material-icons">edit</i></a> <% } %>
+                                            <% if (detail_action != null) { %> <a href="#"><i class="md-icon material-icons">details</i></a> <% } %>
+                                            <% if (delete_action != null) { %> <a href="#"><i class="md-icon material-icons">delete</i></a> <% } %>
+                                        </td> <% } %>
                                     </tr>
                                 </tbody>
                             </table>
@@ -74,6 +75,7 @@
         </div>
     </div>
 </div>
+<% if (add_action != null) { %>
 <div class="md-fab-wrapper">
     <a class="md-fab md-fab-accent" href="#new-<%= moduleName %>-modal" data-uk-modal="{ center:true }">
         <i class="material-icons">&#xE145;</i>
@@ -99,7 +101,7 @@
 <div class="uk-modal" id="new-<%= moduleName %>s-modal">
     <div class="uk-modal-dialog">
         <!--<div class="uk-modal-header"></div>-->
-        <h2 data-i18n="<%= moduleName %>.New <%= moduleName %>s Code"></h2>
+        <h2 data-i18n="<%= moduleName %>.New <%= moduleName %> item"></h2>
         <div class="uk-alert uk-alert-success"> {{'common.sucessfull submiting' | i18n}} ({{new<%= moduleName %>s.length}})</div>
         <ul class="uk-list uk-list-striped">
             <li ng-repeat="item in new<%= moduleName %>s">{{item}}</li>
@@ -107,7 +109,4 @@
         <!--<div class="uk-modal-footer"></div>-->
     </div>
 </div>
-
-
-
-
+ <% } %>

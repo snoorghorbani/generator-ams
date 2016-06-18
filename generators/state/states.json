@@ -4,13 +4,28 @@
     "require_API": [
       {
         "default": "search",
-        "message": "type your action name that use for search for resource :",
+        "message": "type your action name that use for SEARCH in list:",
         "name": "search_action"
       },
       {
         "default": "add",
-        "message": "type your action name that use for add new  :",
+        "message": "type your action name that use for ADD new item : (enter . if you don't have this action)",
         "name": "add_action"
+      },
+      {
+        "default": "edit",
+        "message": "type your action name that use for UPDATE an item : (enter . if you don't have this action)",
+        "name": "edit_action"
+      },
+      {
+        "default": "detail",
+        "message": "type your action name that use for get DETAIL of an item : (enter . if you don't have this action)",
+        "name": "detail_action"
+      },
+      {
+        "default": "delete",
+        "message": "type your action name that use for DELETE an item : (enter . if you don't have this action)",
+        "name": "delete_action"
       }
     ]
   }

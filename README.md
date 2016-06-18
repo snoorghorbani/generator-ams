@@ -32,7 +32,8 @@ yo ams:directive
 
 ### Version 1.3.2 ###
 1. Add AngularJs Module Structur generation.
-
+### Version 1.3.3 ###
+1. Add dynamically Resource Management view tamplate terms in language file.
 
 ## License
 
