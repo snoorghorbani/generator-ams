@@ -17,8 +17,7 @@ var global_ask = require("../global_ask");
  */
 module.exports = function (generator) {
     var done = generator.async();
-    console.log([generator.url, generator.metadata_list_route, generator.moduleName.camelize, generator.actionName.camelize].join('/'))
-    http.get([generator.url, generator.metadata_list_route, generator.moduleName.camelize, generator.actionName.camelize].join('/'), function (response) {
+    http.get([generator.url, generator.metadata_list_route, generator.moduleName, generator.actionName].join('/'), function (response) {
         // Continuously update stream with data
         var body = '';
         response.on('data', function (d) {
@@ -26,9 +25,8 @@ module.exports = function (generator) {
         });
         response.on('end', function () {
             // Data reception is done, do whatever with it!
-            generator.schema = JSON.stringify(JSON.parse(body || []));
-
-            //require('./convert_schema.js')(generator);
+            generator.schema = JSON.stringify(JSON.parse(body || {}));
+            require('./convert_schema.js')(generator);
             require('./create_file.js').execute(generator);
 
             done();

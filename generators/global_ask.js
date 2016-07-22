@@ -53,7 +53,7 @@ module.exports = {
         if (!generator.config.get("languages_directory"))
             prompts.push({
                 name: "languages_directory",
-                message: "Enter your language directory"
+                message: "Enter the main module name for injecet generated module to that?"
             });
 
         return prompts

@@ -21,7 +21,7 @@ module.exports = {
     },
     fill_generator_with_answers: function fill_generator_with_answers(generator, answers) {
         for (var k in answers) {
-            if (__.isObject(answers[k]) || __.isBoolean(answers[k])) {
+            if (__.isObject(answers[k])) {
                 generator[k] = answers[k];
             }
             else {
@@ -37,16 +37,12 @@ module.exports = {
     },
     add_message_to_language: function add_message_to_language(generator) {
         var destinationRoot = generator.destinationRoot();
-        var common_lang_file = require(destinationRoot + '/languages/fa-IR/common.lang.json');
         for (var i in generator.i18n) {
             var temp = generator.i18n[i].split('.');
             var i18n = {
                 path: temp.shift(),
                 text: temp.join('.'),
             }
-
-            if (i18n.path in common_lang_file) continue;
-
             var path = destinationRoot + '/languages/fa-IR/' + i18n.path + '.lang.json';
             var glossery = require(path);
 

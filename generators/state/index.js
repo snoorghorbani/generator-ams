@@ -80,7 +80,7 @@ AMSG.prototype.askFor = function askFor() {
             this.edit_action = (answers.edit_action == '.') ? null : answers.edit_action;
             this.detail_action = (answers.detail_action == '.') ? null : answers.detail_action;
             this.delete_action = (answers.delete_action == '.') ? null : answers.delete_action;
-            this.have_action = (answers.delete_action || answers.detail_action || answers.edit_action) == true;
+            this.have_action = (answers.delete_action && answers.detail_action && answers.edit_action);
             done();
         }.bind(this));
         //#endregion

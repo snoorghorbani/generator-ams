@@ -5,8 +5,7 @@ angular
                 restrict: 'EA',
                 priority: 1500,
                 transclude: false,
-                <% if (!haveView) { %>template: '<div><%= name.titleize %><div>', <% } %>
-                <% if (haveView) { %>templateUrl: <%= templateUrl %>,<% } %>
+                template: '',
                 require: [],
                 scope: false,
                 controller: ['$scope', '$element', '$attrs', '$compile', 'share_module_config', "_", function ($scope, element, attrs, $compile, share_module_config, _) {

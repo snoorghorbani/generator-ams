@@ -1,7 +1,7 @@
 {
   "questions": [
     {
-      "message": "What is your directive name ?",
+      "message": "What is your config name ?",
       "name": "name"
     }
   ]

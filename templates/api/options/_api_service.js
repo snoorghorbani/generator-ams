@@ -3,7 +3,7 @@
  *            apiGateway
  *              .context(controllerName)
                 .action(actionName)
- *              .post(POST/PUT/DELETE?GET)
+ *              .type(POST/PUT/DELETE?GET)
  *              .model(function(){})
  *              .schema({
  *					name:{
@@ -13,6 +13,7 @@
  *	 					MaxLength
  *					}	 
  *              })
+ *              .virtual(property_name , default_value)
  *              .getter(value_path,function(){})
  *              .setter(value_path,function(){})
  *              .notification(message);
@@ -22,11 +23,12 @@ angular
         .run(['apiGateway', function (apiGateway) {
 
             apiGateway
-                .context('<%= moduleName.underscored %>')
-                .action("<%= actionName.underscored %>")
-                .method('<%= methodType.origin %>')
-                .schema(<%= schema %>)
-                .notification("<%= i18n.api_message %>")
+                .context('<%= moduleName.camelize %>')
+                .action("<%= actionName.origin %>")
+                .type('<%= methodType.origin %>')
+                .schema({
+                    "Result": [{}]
+                })
                 .done()
             ;
         }])

@@ -1,0 +1,15 @@
+Description:
+    Creates a new AngularJS route
+
+Example:
+    yo angular:route
+
+	## User Interactions
+		Choose Module name :
+		What is your state name ?
+		Do you want to create view for this ?
+
+    This will create:
+        [directory]/[moduleName]/name_of_route.state.js
+    And add routing to:
+        app.js

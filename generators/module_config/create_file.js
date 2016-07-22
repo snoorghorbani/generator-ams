@@ -6,9 +6,9 @@ var create_file = function () {
         }
 
         var destination_path = function () {
-            return ('./' + generator.directory + '/' + generator.moduleName.underscored + '/directives/' + getName());
+            return ('./' + generator.directory + '/' + generator.moduleName.underscored + '/' + getName());
         }
-        generator.template(templatesFolder + '_directive.js', destination_path() + '.directive.js');
+        generator.template(templatesFolder + '_module_config.js', destination_path() + '.module_config.js');
     }
 };
 
