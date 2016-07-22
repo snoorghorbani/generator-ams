@@ -34,20 +34,22 @@
                             <table class="uk-table uk-table-nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="uk-width-1-10 uk-text-center">{{ '<%= moduleName %>.<%= moduleName %>Id' | i18n }} </th>
-                                        <th class="uk-width-1-10 uk-text-center">{{ 'common.Name' | i18n }} </th>
-                                        <th class="uk-width-1-10 uk-text-small">{{ 'common.NationalId' | i18n }}</th>
-                                        <th class="uk-width-2-10">{{ 'common.EconomicCode' | i18n }}</th>
-                                        <% if (have_action) { %> <th class="uk-width-2-10 uk-text-center">Actions</th> <% } %>
+                                        <th class="uk-width-1-10 uk-text-center" data-i18n="<%= moduleName %>.<%= moduleName %>Id"></th>
+                                        <th class="uk-width-1-10 uk-text-small" data-i18n="common.Name"></th>
+                                        <th class="uk-width-1-10 uk-text-small" data-i18n="common.NationalId"></th>
+                                        <th class="uk-width-2-10 uk-text-small" data-i18n="common.EconomicCode"></th>
+                                        <% if (have_action) { %>
+                                        <th class="uk-width-2-10 uk-text-center">Actions</th> <% } %>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in searchAction.Result.Items">
+                                <tbody infinite-scroll='searchAction.$load_next_page()'>
+                                    <tr ng-repeat="item in searchAction.all">
                                         <td ng-bind="item.<%= moduleName %>Id"></td>
                                         <td ng-bind="item.Name"></td>
                                         <td ng-bind="item.NationalId"></td>
                                         <td ng-bind="item.EconomicCode"></td>
-                                        <% if (have_action) { %> <td class="uk-text-center">
+                                        <% if (have_action) { %>
+                                        <td class="uk-text-center">
                                             <% if (edit_action != null) { %> <a href="#"><i class="md-icon material-icons">edit</i></a> <% } %>
                                             <% if (detail_action != null) { %> <a href="#"><i class="md-icon material-icons">details</i></a> <% } %>
                                             <% if (delete_action != null) { %> <a href="#"><i class="md-icon material-icons">delete</i></a> <% } %>
@@ -64,10 +66,11 @@
                     <div class="md-card-content">
                         <!--<h3 class="heading_c uk-margin-medium-bottom">Other settings</h3>-->
                         <form sh-form="searchAction" id="search-<%= moduleName %>">
-                            <sh:input type="text" ng-model="Name" data-i18n-path="common" />
-                            <sh:input type="text" ng-model="EconomicCodeOrNationalId" data-i18n-path="common" />
-                            <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-wave-light waves-effect waves-button waves-light" href="javascript:void(0)" data-i18n="common.search"></button>
-                            <button type="reset" class="md-btn md-btn-flat md-btn-mini md-btn-wave waves-effect waves-button">{{'common.show all' | i18n}}</button>
+                            <sh:input ng-model="Name" data-i18n-path="common" />
+                            <sh:input ng-model="EconomicCodeOrNationalId" data-i18n-path="common" />
+
+                            <sh:input type="submit" data-full data-i18n="search" />
+                            <sh:input type="reset" data-i18n="show all" />
                         </form>
                     </div>
                 </div>
@@ -84,12 +87,12 @@
 <div class="uk-modal" id="new-<%= moduleName %>-modal">
     <div class="uk-modal-dialog">
         <form sh-form="<%= moduleName %>.<%= add_action %>" class="uk-form-stacked">
-            <sh:input type="text" ng-model="<%= moduleName %>CodePrefix" maxlength="10" required data-i18n-path="<%= moduleName %>" />
-            <sh:input type="number" ng-model="Quantity" required data-i18n-path="common" />
-            <sh:input type="mask" ng-model="CreditAmount.Amount" required data-i18n-path="common"
+            <sh:input ng-model="<%= moduleName %>CodePrefix" data-i18n-path="<%= moduleName %>" />
+            <sh:input ng-model="Quantity" data-i18n-path="common" />
+            <sh:input type="mask" ng-model="CreditAmount.Amount" data-i18n-path="common"
                       data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'prefix': 'ريال ', 'placeholder': '0'"
                       data-inputmask-showmaskonhover="false" />
-            <sh:input type="mask" ng-model="ExpiryDateTime" required data-i18n-path="common"
+            <sh:input type="mask" ng-model="ExpiryDateTime" data-i18n-path="common"
                       data-inputmask="'alias': '9999/99/99'" data-inputmask-showmaskonhover="false" />
             <div class="uk-modal-footer uk-text-right">
                 <sh:input type="cancel" />
@@ -101,7 +104,7 @@
 <div class="uk-modal" id="new-<%= moduleName %>s-modal">
     <div class="uk-modal-dialog">
         <!--<div class="uk-modal-header"></div>-->
-        <h2 data-i18n="<%= moduleName %>.New <%= moduleName %> item"></h2>
+        <h2 data-i18n="<%= moduleName %>.New <%= moduleName %> Item"></h2>
         <div class="uk-alert uk-alert-success"> {{'common.sucessfull submiting' | i18n}} ({{new<%= moduleName %>s.length}})</div>
         <ul class="uk-list uk-list-striped">
             <li ng-repeat="item in new<%= moduleName %>s">{{item}}</li>
@@ -109,4 +112,4 @@
         <!--<div class="uk-modal-footer"></div>-->
     </div>
 </div>
- <% } %>
+<% } %>

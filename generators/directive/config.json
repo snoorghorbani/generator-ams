@@ -3,6 +3,12 @@
     {
       "message": "What is your directive name ?",
       "name": "name"
+    },
+    {
+      "message": "Do you want to have view for this directive ?",
+      "name": "haveView",
+      "type": "confirm",
+      "defualt": true
     }
   ]
 }
