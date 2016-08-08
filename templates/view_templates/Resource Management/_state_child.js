@@ -9,6 +9,7 @@ angular.module('<%= moduleName %>')
 					url: "/<%= stateName %>",
 					templateUrl: 'client/<%= moduleName %>/<%= stateName %>/<%= moduleName %>_<%= stateName %>.template.html',
 					controller: '<%= moduleName %>_<%= stateName %>.controller',
+					controllerAs: 'vm',
 					resolve: {
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
 							return $ocLazyLoad.load([
