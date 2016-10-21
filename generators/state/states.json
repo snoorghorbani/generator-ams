@@ -1,7 +1,7 @@
 {
-  "view_templates": [ "Default", "Resource Management" ],
+  "view_templates": [ "Default", "Resource Management" , "Mailbox"],
   "Resource Management": {
-    "require_API": [
+    "questions": [
       {
         "default": "search",
         "message": "type your action name that use for SEARCH in list:",
@@ -28,5 +28,14 @@
         "name": "delete_action"
       }
     ]
+  },
+  "Default": {
+    "questions": [
+    ]
+  },
+  "Mailbox": {
+    "questions": [
+      ]
   }
+
 }

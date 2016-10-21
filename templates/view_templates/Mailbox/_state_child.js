@@ -13,6 +13,7 @@ angular.module('<%= moduleName %>')
 					resolve: {
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
 							return $ocLazyLoad.load([
+                'lazy_dropify',
 								'lazy_parsleyjs',
 								'lazy_masked_inputs',
 								'lazy_character_counter',

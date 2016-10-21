@@ -71,9 +71,9 @@ AMSG.prototype.askFor = function askFor() {
         this.menuLink_titleize = _.titleize(_.humanize(_.underscored([this.stateName, 'of', this.moduleName].join(' '))));
 
         //#region ask questions related to selected view template.
-        if (!(states[this.viewTemplate] && states[this.viewTemplate].require_API)) return;
+        if (!(states[this.viewTemplate] && states[this.viewTemplate].questions)) return;
 
-        this.prompt(states[this.viewTemplate].require_API, function (answers) {
+        this.prompt(states[this.viewTemplate].questions, function (answers) {
             //global_fn.fill_generator_with_answers(this, props);
             this.search_action = (answers.search_action == '.') ? null : answers.search_action;
             this.add_action = (answers.add_action == '.') ? null : answers.add_action;

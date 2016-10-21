@@ -10,7 +10,7 @@ angular
         function ($rootScope, $scope, locale) {
             var $scopeManager = new $scope.$scopeManager($scope);
 
-            $scope.$$$api.<%= moduleName %>.<%= add_action %>
+            $$$api.<%= moduleName %>.<%= add_action %>
                 .$promise
                 .then(function (response) {
                     //$scope.newVouchers = response.Result.VoucherCodes;
@@ -19,7 +19,7 @@ angular
                 })
                 .catch(function (response) { debugger; });
 
-            $scope.searchAction = $scope.$$$api.<%= moduleName %>.<%= search_action %>.$init(invoke_on_init = true);
+            $scope.searchAction = $$$api.<%= moduleName %>.<%= search_action %>.$init(invoke_on_init = true);
         }
     ])
 ;

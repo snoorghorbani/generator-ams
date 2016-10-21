@@ -33,7 +33,7 @@ module.exports = {
         if (!generator.config.get("postGuplTask"))
             prompts.push({
                 name: "postGuplTask",
-                default:"js_app",
+                default:"default",
                 message: "Enter Gulp Task that you want to run after done?"
             });
         if (!generator.config.get("metadata_list_route"))

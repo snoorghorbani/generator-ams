@@ -1,7 +1,7 @@
 var Strategy = function () {
     var templatesFolder = '../../../templates/';
     this.execute = function (generator) {
-        var templatesFolder_according_views = templatesFolder + 'view_templates/Resource management/';
+        var templatesFolder_according_views = templatesFolder + 'view_templates/'+generator.viewTemplate+'/';
         var getName = function () {
             return generator.moduleName + "_" + generator.stateName;
         }
@@ -9,7 +9,6 @@ var Strategy = function () {
         var destination_path = function () {
             return ('./' + generator.directory + '/' + generator.moduleName + '/' + generator.stateName + '/' + getName());
         }
-
         generator.template(templatesFolder_according_views + '_state_child.js', destination_path() + '.state.js');
         if (generator.haveView)
             generator.template(templatesFolder_according_views + '_template.html', destination_path() + '.template.html');

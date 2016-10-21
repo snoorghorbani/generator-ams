@@ -1,0 +1,187 @@
+<!--
+    view template   :   Inbox
+ -->
+<div id="top_bar" top-bar>
+    <div class="md-top-bar">
+        <div class="uk-width-large-8-10 uk-container-center">
+            <div class="uk-clearfix">
+                <div class="md-top-bar-actions-right">
+                    <div class="md-top-bar-checkbox">
+                        <input type="checkbox" id="mailbox_select_all" ng-model="select_all_messages" icheck />
+                    </div>
+                    <div class="md-btn-group">
+                        <a href="#" class="md-btn md-btn-flat md-btn-small md-btn-wave" data-uk-tooltip="{pos:'bottom'}" title="Archive"><i class="material-icons">&#xE149;</i></a>
+                        <a href="#" class="md-btn md-btn-flat md-btn-small md-btn-wave" data-uk-tooltip="{pos:'bottom'}" title="Spam"><i class="material-icons">&#xE160;</i></a>
+                        <a href="#" class="md-btn md-btn-flat md-btn-small md-btn-wave" data-uk-tooltip="{pos:'bottom'}" title="Delete"><i class="material-icons">&#xE872;</i></a>
+                    </div>
+                    <div class="uk-button-dropdown" data-uk-dropdown="{mode: 'click'}">
+                        <button class="md-btn md-btn-flat md-btn-small md-btn-wave" data-uk-tooltip="{pos:'top'}" title="Move to"><i class="material-icons">&#xE2C7;</i> <i class="material-icons">&#xE313;</i></button>
+                        <div class="uk-dropdown">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Forward</a></li>
+                                <li><a href="#">Reply</a></li>
+                                <li><a href="#">Offers</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Trash</a></li>
+                                <li><a href="#">Spam</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-large-7-10">
+                <ams:inbox data-source="request.MyCartable"></ams:inbox>
+            </div>
+            <div class="uk-width-large-3-10">
+                <div id="search-on-requests-container" class="md-card" data-uk-sticky="{top:70}">
+                    <div class="md-card-content">
+                        <!--<h3 class="heading_c uk-margin-medium-bottom">Other settings</h3>-->
+                        <form sh-form="searchAction" id="search-my">
+                            <!--<sn:select ng-model="TelcoCenter"
+                                       data-action="my.allTelcoCenters"
+                                       options-path="Result"
+                                       data-label-field="TelcoCenter"
+                                       data-value-field="TelcoCenter"
+                                       data-search-field="TelcoCenter,City,Province"
+                                       data-on-render-options="onrenderoptions"></sn:select>
+                                       data-create="true"
+                                       data-add-option-action="telco_center.RegisterCity"-->
+
+                            <sh:input type="text" ng-model="Criteria.RequestId" data-i18n-path="request" />
+                            <sn:select ng-model="Criteria.RequestCetegoryCode" data-i18n-path="request"
+                                       data-action="request.AllRequestCategories"
+                                       options-path="Result.Items"
+                                       data-label-field="Name"
+                                       data-value-field="RequestCategoryCode"></sn:select>
+                            <sn:select ng-model="RequestType" data-i18n-path="request"
+                                       data-action="request.AllRequestTypes"
+                                       options-path="Result.Items"
+                                       data-label-field="Name"
+                                       data-value-field="RequestType"></sn:select>
+                            <sn:select ng-model="RequestStatusCode" data-i18n-path="request"
+                                       data-action="request.AllStatusesOfRequestType"
+                                       options-path="Result.Items"
+                                       data-label-field="Name"
+                                       data-value-field="RequestStatusCode"></sn:select>
+
+
+
+                            <!--<sn:select ng-model="ProvinceId"
+                                       data-action="telco_center.AllProvince"
+                                       options-path="Result"
+                                       data-label-field="Name"
+                                       data-value-field="ProvinceId"></sn:select>
+                            <sn:select ng-model="CityId"
+                                       data-action="telco_center.SearchCity"
+                                       data-add-option-action="telco_center.RegisterCity"
+                                       options-path="Result"
+                                       data-label-field="Name"
+                                       data-value-field="CityId"
+                                       data-create="true"></sn:select>
+                            <sn:select ng-model="TypeCode"
+                                       options-path="Result"
+                                       data-action="telco_center.AllTelcoCenterType"
+                                       data-label-field="Name"
+                                       data-value-field="Code"></sn:select>-->
+
+                            <sh:input type="submit" data-i18n="search" />
+                            <sh:input type="reset" data-i18n="show all" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- #region secondary sidebar -->
+<aside id="sidebar_secondary" sidebar-secondary class="tabbed_sidebar">
+    <ul class="uk-tab uk-tab-icons uk-tab-grid" data-uk-tab="{connect:'#dashboard_sidebar_tabs', animation:'slide-horizontal'}">
+        <li class="uk-width-1-4 uk-active"><a href="#"><i class="material-icons">details</i></a></li>
+        <li class="uk-width-1-4" ng-click="loadRequestHistory()"><a href="#"><i class="material-icons">&#xE422;</i></a></li>
+        <li class="uk-width-1-4" ng-click="loadNotesOfRequest()"><a href="#"><i class="material-icons">comment</i></a></li>
+        <li class="uk-width-1-4" ng-click="loadAttachmentsOfRequest()"><a href="#"><i class="material-icons" data-i18n="icons.attachment"></i></a></li>
+    </ul>
+    <div custom-scrollbar>
+        <ul id="dashboard_sidebar_tabs" class="uk-switcher">
+            <li id="request_readonly_fields">
+                <!--<h4 class="heading_c uk-text-bold uk-text-primary uk-text-small">جزییات درخواست</h4>-->
+                <!--<fields data-readonlies></fields>-->
+                <ams:list></ams:list>
+            </li>
+            <li>
+                <!--<h4 class="heading_c uk-text-bold uk-text-primary uk-text-small">تاریخچه درخواست</h4>-->
+                <div class="timeline timeline_small uk-margin-bottom">
+                    <div class="timeline_item" ng-repeat="event in historyOfRequestWorkflow.Result.Items">
+                        <div class="timeline_icon timeline_icon_danger" ng-if="event.status == 'danger'"><i class="material-icons" ng-bind-html="event.icon"></i></div>
+                        <div class="timeline_icon timeline_icon_success" ng-if="event.status == 'success'"><i class="material-icons" data-i18n="icons.approve"></i></div>
+                        <div class="timeline_icon timeline_icon_warning" ng-if="event.status == 'waiting'"><i class="material-icons" data-i18n="icons.waiting"></i></div>
+                        <div class="timeline_icon timeline_icon_primary" ng-if="event.status == 'primary'"><i class="material-icons" data-i18n="icons.edit"></i></div>
+                        <div class="timeline_icon" ng-if="!event.status"><i class="material-icons" ng-bind-html="event.icon"></i></div>
+                        <div class="timeline_date">
+                            <div>{{ event.TransitionDateTime  }}</div>
+                            <div>{{ event.TransitionDelayDurationDescription  }}</div>
+                        </div>
+                        <div class="timeline_content">
+                            <div class="timeline_content_addon" ng-if="event.image || event.post_excerpt || event.TransmitterFullName">
+                                {{event.FromRequestStatusName}} <a href="#" ng-if="event.link_text"><strong>{{event.link_text}}</strong></a>
+                                <img ng-src="{{event.image}}" alt="" ng-if="event.image" />
+                                <!--<blockquote ng-if="event.post_excerpt">
+                                    {{event.post_excerpt}}&hellip;
+                                </blockquote>-->
+                                <ul class="md-list md-list-addon" ng-if="event.TransmitterFullName">
+                                    <li>
+                                        <!--<div class="md-list-addon-element" ng-if="event.user_avatar">
+                                            <img class="md-user-image md-list-addon-avatar" ng-src="{{event.user_avatar}}" alt="" />
+                                        </div>-->
+                                        <div class="md-list-content">
+                                            <span class="md-list-heading" ng-if="event.TransmitterFullName">{{event.TransmitterFullName}}</span>
+                                            <!--<span class="uk-text-small uk-text-muted" ng-if="event.user_status">{{event.user_status}}</span>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <!--<h4 class="heading_c uk-text-bold uk-text-primary uk-text-small">توضیحات درخواست</h4>-->
+
+                <div class="uk-notify-message uk-notify-message-warning uk-text-small" ng-if="notesOfRequest.Result.Items.length == 0" data-i18n="request.this request dont have any note"></div>
+
+                <ul class="md-list">
+                    <li ng-repeat="item in notesOfRequest.Result.Items">
+                        <span class="uk-text-small uk-text-muted">{{item.DateTime}}</span>
+                        <div class="md-list-content">
+                            <span class="md-list-heading">{{item.Note}}</span>
+                            <span class="uk-text-small">{{item.WriterFullName}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="uk-notify-message uk-notify-message-warning uk-text-small" ng-if="attachmentsOfRequest.Result.Items.length == 0" data-i18n="request.this request dont have any Attachment"></div>
+
+                <ul class="md-list">
+                    <li ng-repeat="item in attachmentsOfRequest.Result.Items">
+                        <div class="md-list-content">
+                            <a href="#" class="md-list-heading">
+                                <i class="md-list-addon-icon material-icons md-24" data-i18n="icons.{{item.type}}"></i>
+                                {{item.Name}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</aside>
+<!-- #endregion secondary sidebar-->
