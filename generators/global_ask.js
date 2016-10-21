@@ -33,6 +33,7 @@ module.exports = {
         if (!generator.config.get("postGuplTask"))
             prompts.push({
                 name: "postGuplTask",
+                default:"js_app",
                 message: "Enter Gulp Task that you want to run after done?"
             });
         if (!generator.config.get("metadata_list_route"))
@@ -48,11 +49,13 @@ module.exports = {
         if (!generator.config.get("main_module"))
             prompts.push({
                 name: "main_module",
+                default:"states",
                 message: "Enter the main module name for injecet generated module to that?"
             });
         if (!generator.config.get("languages_directory"))
             prompts.push({
                 name: "languages_directory",
+                default:"\\public\\languages",
                 message: "Enter the main module name for injecet generated module to that?"
             });
 

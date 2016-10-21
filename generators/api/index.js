@@ -45,13 +45,17 @@ AMSG.prototype.askFor = function askFor() {
 };
 
 AMSG.prototype.app = function app() {
+    this.schema = "{}";
+
+    this.i18n = {
+        api_message: this.actionName.titleize + ' of ' + this.moduleName.titleize + ' start'
+    }
+
     require('./get_schema_from_server.js')(this);
 
+    global_fn.add_message_to_language(this, this.moduleName.underscored);
+
     this.log('create files according your choose...');
-    this.i18n = {
-        api_message: this.moduleName.underscored + '.' + this.actionName.titleize + ' of ' + this.moduleName.titleize + ' start'
-    }
-    global_fn.add_message_to_language(this);
 };
 
 AMSG.prototype.saveConfig = function saveConfig() {

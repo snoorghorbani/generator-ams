@@ -16,20 +16,23 @@ var global_ask = require("../global_ask");
  * Initialization Function.
  */
 module.exports = function (generator) {
-    var done = generator.async();
-    http.get([generator.url, generator.metadata_list_route, generator.moduleName, generator.actionName].join('/'), function (response) {
-        // Continuously update stream with data
-        var body = '';
-        response.on('data', function (d) {
-            body += d;
-        });
-        response.on('end', function () {
-            // Data reception is done, do whatever with it!
-            generator.schema = JSON.stringify(JSON.parse(body || {}));
-            require('./convert_schema.js')(generator);
-            require('./create_file.js').execute(generator);
-
-            done();
-        });
-    });
+    // var done = generator.async();
+    //require('./convert_schema.js')(generator);
+    require('./create_file.js').execute(generator);
+    // done();
+    // http.get([generator.url, generator.metadata_list_route, generator.moduleName, generator.actionName].join('/'), function (response) {
+    //     // Continuously update stream with data
+    //     var body = '';
+    //     response.on('data', function (d) {
+    //         body += d;
+    //     });
+    //     response.on('end', function () {
+    //         // Data reception is done, do whatever with it!
+    //         generator.schema = JSON.stringify(JSON.parse(body || {}));
+    //         require('./convert_schema.js')(generator);
+    //         require('./create_file.js').execute(generator);
+    //
+    //         done();
+    //     });
+    // });
 }

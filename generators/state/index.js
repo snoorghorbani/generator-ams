@@ -93,14 +93,14 @@ AMSG.prototype.app = function app() {
 
     require('./create_file.js').execute(this);
     this.i18n = {
-        "menu_link": [this.moduleName, this.menuLink_titleize].join('.'),
-        "new_item_modal": this.moduleName + '.New ' + this.moduleName + ' Item',
-        "items": this.moduleName + '.' + this.moduleName + 's',
-        "item": this.moduleName + '.' + this.moduleName,
-        "delete_item": this.moduleName + '.Delete ' + this.moduleName,
-        "edit_item": this.moduleName + '.Edit ' + this.moduleName
+        "menu_link": [this.menuLink_titleize].join('.'),
+        "new_item_modal": 'New ' + this.moduleName + ' Item',
+        "items":  this.moduleName + 's',
+        "item":  this.moduleName,
+        "delete_item":'Delete ' + this.moduleName,
+        "edit_item": 'Edit ' + this.moduleName
     }
-    global_fn.add_message_to_language(this);
+    global_fn.add_message_to_language(this,this.moduleName);
 
     this.log('create files according your choose...');
 };

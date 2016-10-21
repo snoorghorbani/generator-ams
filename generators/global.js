@@ -35,21 +35,15 @@ module.exports = {
             };
         }
     },
-    add_message_to_language: function add_message_to_language(generator) {
+    add_message_to_language: function add_message_to_language(generator , moduleName) {
         var destinationRoot = generator.destinationRoot();
+        var path = destinationRoot + '\\public\\languages\\fa-IR\\' + moduleName + '.lang.json';
+        var glossery = require(path);
         for (var i in generator.i18n) {
-            var temp = generator.i18n[i].split('.');
-            var i18n = {
-                path: temp.shift(),
-                text: temp.join('.'),
-            }
-            var path = destinationRoot + '/languages/fa-IR/' + i18n.path + '.lang.json';
-            var glossery = require(path);
-
-            glossery[i18n.text] = (glossery[i18n.text]) ? glossery[i18n.text] : i18n.text;
-
-            jsonfile.writeFile(path, glossery);
+            var text = generator.i18n[i];
+            glossery[text] = (glossery[text]) ? glossery[text] : text;
         }
+        jsonfile.writeFile(path, glossery);
     }
 }
 

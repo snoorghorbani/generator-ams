@@ -10,7 +10,7 @@ var JavaStrategy = function () {
         }
         var language_destination_path = function () {
             //TODO : get language type and language folder
-            return "languages" + "/" + "fa-IR" + '/' + generator.moduleName.underscored;
+            return "public/languages" + "/" + "fa-IR" + '/' + generator.moduleName.underscored;
         }
         var is_this_file_selected = function (name) {
             return generator.files.indexOf(name) > -1;
