@@ -2,7 +2,8 @@
  *  maybe : 
  *            apiGateway
  *              .context(controllerName)
-                .action(actionName)
+ *              .action(actionName)
+ *              .route(route)
  *              .type(POST/PUT/DELETE?GET)
  *              .model(function(){})
  *              .schema({

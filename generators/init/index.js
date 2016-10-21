@@ -10,7 +10,9 @@ var config = require('./config.json');
 var global = require('../global.json');
 var global_ask = require("../global_ask");
 var global_fn = require('../global.js');
-
+var bower = require('bower');
+var inquirer = require('inquirer');
+var gulp = require('gulp');
 /**
  * Initialization Function.
  */
@@ -46,9 +48,7 @@ AMSG.prototype.userInteractions = function userInteractions() {
     }.bind(this));
 };
 AMSG.prototype.app = function app() {
-    require('./create_file.js').execute(this, config);
-
-    this.log('create files according your choose...');
+  require('./create_file.js').execute(this, config);
 };
 AMSG.prototype.saveConfig = function saveConfig() {
     this.config.save();
